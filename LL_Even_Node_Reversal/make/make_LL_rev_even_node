@@ -1,0 +1,27 @@
+####### THIS MAKE FILE USED TO BUILD THE PROGRAM WHCIH REVERSES THE EVEN POSITIONED NODES IN A SINGLE LINKED LIST.
+
+
+C = gcc 
+COMPILE = -c -g -Wall
+OBJ = ../obj/
+BIN = ../bin/
+SRC = ../src/
+INCLUDE = ../inc/
+INC = -I ../inc/
+RENAME = -o
+VALGRIND = valgrind --tool=memcheck --leak-check=yes --track-origins=yes
+
+
+
+$(BIN)reverse_even_node:$(OBJ)LL_rev_even_node.o
+    $(C) $(RENAME) $(BIN)reverse_even_node $(OBJ)LL_rev_even_node.o
+
+$(OBJ)LL_rev_even_node.o:$(SRC)LL_rev_even_node.c $(INCLUDE)LL_rev_even_node.h
+    $(C) $(COMPILE) $(RENAME) $(OBJ)LL_rev_even_node.o $(SRC)LL_rev_even_node.c $(INC)
+
+clean:
+    rm -rf $(OBJ)LL_rev_even_node.o
+    rm -rf $(BIN)reverse_even_node
+
+valgrind:
+    $(VALGRIND) $(BIN)reverse_even_node
