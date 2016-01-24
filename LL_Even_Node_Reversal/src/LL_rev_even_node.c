@@ -51,6 +51,7 @@ int main()
         }
     }
     even_node_reverse(phead);
+    printf("\nOutput of the sorted list:");
     traverse_list(phead);
     release_memory(phead);
 
