@@ -8,3 +8,5 @@ clean:
   rm -rf sparse_array.o
   rm -rf sparse_array
 
+valgrind:
+	valgrind --tool=memcheck --leak-check=yes --track-origins=yes ./sparse_array
