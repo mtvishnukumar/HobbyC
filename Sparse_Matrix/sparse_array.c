@@ -35,6 +35,7 @@
  *  1
  *  0
  * **************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -46,7 +47,7 @@ void ReleaseMemory (char **buffer, int total_blocks)
 {
     int index = 0;
 
-    if ((buffer == NULL) || (total_blocks <= 0))
+    if (buffer == NULL)
     {
         return;
     }
@@ -61,7 +62,7 @@ void ReleaseMemory (char **buffer, int total_blocks)
 
 int main()
 {
-    int N = 0,Q = 0, *count = NULL, ite = 0,length;
+    int N = 0,Q = 0, *count = NULL, ite = 0,length, search_idx = 0;
     char **input = NULL,**query = NULL,temp[INPUT_LENGTH+1];
 
     printf("Enter N:");
@@ -96,7 +97,6 @@ int main()
              * input string whose lenght is greate than 20 */
             for (;getchar()!='\n';);
         }
-
         input[ite] = (char*)calloc(1, (sizeof(char) *(length + 1)));
 
         if (input[ite] == NULL)
@@ -111,7 +111,7 @@ int main()
 
     scanf("%d",&Q);
 
-    if ((Q < 0) || (Q > TOAL_QUERY))
+    if ((Q <= 0) || (Q > TOAL_QUERY))
     {
         ReleaseMemory (input,N);
         return 0;
@@ -156,6 +156,37 @@ int main()
         strcpy(query[ite],temp);
 
     }
+
+    count = (int*)calloc(Q,sizeof(int));
+
+    if (count == NULL)
+    {
+        ReleaseMemory(query,ite);
+        ReleaseMemory(input,N);
+        return 0;
+    }
+
+    for (ite = 0; ite < Q; ite++)
+    {
+        count[ite] = 0;
+    }
+
+    for (ite = 0; ite < Q; ite++)
+    {
+        for (search_idx = 0; search_idx < N; search_idx++)
+        {
+            if (strcmp(input[search_idx],query[ite]) == 0)
+            {
+                count[ite]++;
+            }
+        }
+    }
+    for(ite = 0; ite < Q; ite++)
+    {
+        printf("%d\n",count[ite]);
+    }
+    free(count);
+
     ReleaseMemory(input,N);
     input = NULL;
     ReleaseMemory(query,Q);
