@@ -1,41 +1,3 @@
-/*******************************************************************
- * There are N strings. Each string's length is no more than 20 characters.
- * There are also Q queries.
- * For each query, you are given a string, and you need to find out how many
- * times this string occurred previously.
- *
- * Input Format
- * ============
- * The first line contains N, the number of strings.
- * The next N lines each contain a string.
- * The N+2nd line contains Q, the number of queries.
- * The following Q lines each contain a query string.
- *
- * Constraints
- * ===========
- * 1<=N<=1000
- * 1<=Q<=1000
- * 1<= length of any string <=20
- *
- * SAMPLE INPUT:
- * ------------
- *  4
- *  aba
- *  baba
- *  aba
- *  xzxb
- *  3
- *  aba
- *  xzxb
- *  ab
- *
- * SAMPLE OUTPUT:
- * -------------
- *  2
- *  1
- *  0
- * **************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -63,9 +25,8 @@ void ReleaseMemory (char **buffer, int total_blocks)
 int main()
 {
     int N = 0,Q = 0, *count = NULL, ite = 0,length, search_idx = 0;
-    char **input = NULL,**query = NULL,temp[INPUT_LENGTH+1];
+    char **input = NULL,**query = NULL,temp[INPUT_LENGTH+1],ch;
 
-    printf("Enter N:");
     scanf("%d",&N);
     if ((N <= 0) || (N > TOTAL_STRING))
     {
@@ -73,7 +34,7 @@ int main()
     }
 
     /* To clear input buffer */
-    for(;getchar()!='\n';);
+    while((ch = getchar())!=EOF && (ch != '\n'));
 
     input = (char**)calloc(1, (N * (sizeof(char*))));
     if (input == NULL)
@@ -95,7 +56,7 @@ int main()
         {
             /* Need to clear the input buffer if the user has entered
              * input string whose lenght is greate than 20 */
-            for (;getchar()!='\n';);
+            while((ch = getchar())!=EOF && (ch != '\n'));
         }
         input[ite] = (char*)calloc(1, (sizeof(char) *(length + 1)));
 
@@ -107,7 +68,6 @@ int main()
 
         strcpy(input[ite],temp);
     }
-    printf("Enter Q:");
 
     scanf("%d",&Q);
 
@@ -118,7 +78,7 @@ int main()
     }
 
     /* To clear input buffer */
-    for (;getchar()!='\n';);
+    while((ch = getchar())!=EOF && (ch != '\n'));
 
     query = (char**)calloc(1, (Q *sizeof(char*)));
     if (query == NULL)
@@ -141,7 +101,7 @@ int main()
         {
             /* Need to clear the input buffer if the user has entered
              * input string whose lenght is greate than 20 */
-            for (;getchar()!='\n';);
+            while((ch = getchar())!=EOF && (ch != '\n'));
         }
 
         query[ite] = (char*)calloc(1, (sizeof(char) *(length + 1)));
